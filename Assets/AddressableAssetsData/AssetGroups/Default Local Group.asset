@@ -25,6 +25,18 @@ MonoBehaviour:
     m_Address: Assets/Prefab/Enemies/enemy_wave.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6f4a63bbf85ca1a449f54ca8e1180eb9
+    m_Address: Assets/Scripts/ScriptableObjects/EnemyWave_Default.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a61c4634c00315a49acbd1ff82fc1a1e
+    m_Address: Assets/Scripts/ScriptableObjects/Player_Default.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 66d5b7d152ea86a4a8e0327556c01c41
+    m_Address: Assets/Scripts/ScriptableObjects/PlayerBullet_Default.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4b02c69c9438cb14d935629726b00466, type: 2}
   m_SchemaSet:
