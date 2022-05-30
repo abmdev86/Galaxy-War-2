@@ -4,15 +4,18 @@ using com.sluggagames.gw2.Core;
 using com.sluggagames.gw2.Core.Interfaces;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace com.sluggagames.gw2.Player
 {
+    [RequireComponent(typeof(PlayerInput))]
     public class Player : MonoBehaviour, IActorTemplate
     {
         int travelSpeed;
         int health;
         int hitPower;
+
         CinemachineVirtualCamera cam;
         GameObject actor;
         GameObject fire;
@@ -44,12 +47,17 @@ namespace com.sluggagames.gw2.Player
         float width;
         float height;
 
+
         private void Start()
         {
+            cam = (CinemachineVirtualCamera)GameObject.FindObjectOfType(typeof(CinemachineVirtualCamera));
+            height = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).y - .5f);
+            width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f);
+
+
+            _Player = GameObject.Find("_Player");
             cam.Follow = transform;
             cam.LookAt = transform;
-            _Player = GameObject.Find("_Player");
-
 
         }
 
