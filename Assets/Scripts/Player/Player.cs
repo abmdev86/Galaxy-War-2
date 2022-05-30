@@ -15,8 +15,9 @@ namespace com.sluggagames.gw2.Player
         int travelSpeed;
         int health;
         int hitPower;
-
+        Vector2 move;
         CinemachineVirtualCamera cam;
+        Rigidbody rb;
         GameObject actor;
         GameObject fire;
         public int Health
@@ -50,17 +51,75 @@ namespace com.sluggagames.gw2.Player
 
         private void Start()
         {
+            rb = GetComponent<Rigidbody>();
             cam = (CinemachineVirtualCamera)GameObject.FindObjectOfType(typeof(CinemachineVirtualCamera));
             height = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).y - .5f);
             width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f);
 
-
+            Debug.Log(height + " and width: " + width);
             _Player = GameObject.Find("_Player");
             cam.Follow = transform;
             cam.LookAt = transform;
 
         }
 
+        private void FixedUpdate()
+        {
+            Movement(move);
+        }
+
+
+        void Movement(Vector2 movement)
+        {
+            movement.Normalize();
+            //rb.Move(Vector3 position, Quaternion rotation); 2022.1+
+            Vector3 newMove = new Vector3(0, movement.y, -movement.x);
+            rb.MovePosition(transform.position + newMove * Time.deltaTime * travelSpeed);
+
+        }
+
+        #region Unity Callbacks
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Enemy")
+            {
+                if (health >= 1)
+                {
+                    // check for player shield
+                    if (transform.Find("energy +1(Clone"))
+                    {
+                        Destroy(transform.Find("energy +1(Clone)").gameObject);
+                        health -= other.GetComponent<IActorTemplate>().SendDamage();
+                    }
+                    else
+                    {
+                        health -= 1;
+                    }
+                }
+                if (health <= 0)
+                {
+                    Die();
+                }
+            }
+        }
+        #endregion
+        #region  IActorTemplate Methods
+        public void TakeDamage(int incomingDamage)
+        {
+            health -= incomingDamage;
+        }
+        public int SendDamage()
+        {
+            return hitPower;
+        }
+
+        public void Die()
+        {
+
+            cam.Follow = _Player.transform;
+            cam.LookAt = _Player.transform;
+        }
         public void ActorStats(SOActorModel model)
         {
 
@@ -70,27 +129,22 @@ namespace com.sluggagames.gw2.Player
             fire = model.actorsBullets;
 
         }
-
-        public void Die()
-        {
-
-            cam.Follow = _Player.transform;
-            cam.LookAt = _Player.transform;
-        }
-
         public void Revive()
         {
             throw new System.NotImplementedException();
         }
+        #endregion
+        #region PlayerInput Callbacks
 
-        public int SendDamage()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public void TakeDamage(int incomingDamage)
+        public void OnMove(InputValue value)
         {
-            throw new System.NotImplementedException();
+
+            move = value.Get<Vector2>();
+
         }
+        #endregion
+
+
     }
 }
