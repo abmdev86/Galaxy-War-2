@@ -9663,8 +9663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24271cbddcc557428a2dfe241d5d755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalSpeed: 1
-  verticalAmplitude: 0.5
+  verticalSpeed: 0.5
+  verticalAmplitude: 1
 --- !u!1 &8799085722303455074
 GameObject:
   m_ObjectHideFlags: 0
