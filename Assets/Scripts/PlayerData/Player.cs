@@ -85,17 +85,18 @@ namespace com.sluggagames.gw2.PlayerData
         {
             if (other.tag == "Enemy")
             {
+                IActorTemplate enemy = other.GetComponent<IActorTemplate>();
                 if (health >= 1)
                 {
                     // check for player shield
                     if (transform.Find("energy +1(Clone"))
                     {
                         Destroy(transform.Find("energy +1(Clone)").gameObject);
-                        health -= other.GetComponent<IActorTemplate>().SendDamage();
+                        health -= enemy.SendDamage();
                     }
                     else
                     {
-                        health -= 1;
+                        health -= enemy.SendDamage();
                     }
                 }
                 if (health <= 0)
@@ -117,15 +118,14 @@ namespace com.sluggagames.gw2.PlayerData
 
         public void Die()
         {
+            Destroy(gameObject);
 
-            if (cam.LookAtTargetChanged)
-            {
-                cam.LookAt = transform;
-            }
-            if (transform == null)
-            {
-                cam.LookAt = _Player.transform;
-            }
+
+        }
+
+        private void OnDestroy()
+        {
+            cam.LookAt = _Player.transform;
         }
         public void ActorStats(SOActorModel model)
         {
