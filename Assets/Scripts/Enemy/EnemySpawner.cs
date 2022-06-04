@@ -34,9 +34,11 @@ namespace com.sluggagames.gw2.Enemy
             for (int i = 0; i < qty; i++)
             {
                 GameObject enemyUnit = CreateEnemy();
-                enemyUnit.transform.position = Vector3.zero;
+                //    enemyUnit.transform.position = Vector3.zero;
                 enemyUnit.gameObject.transform.SetParent(this.transform);
                 enemyUnit.transform.position = transform.position;
+                //   var player = FindObjectOfType(typeof(Player));
+                enemyUnit.transform.LookAt(GameObject.Find("player_ship").transform);
                 yield return new WaitForSeconds(spwnRate);
             }
             yield return null;
@@ -46,6 +48,7 @@ namespace com.sluggagames.gw2.Enemy
         private GameObject CreateEnemy()
         {
             GameObject enemy = GameObject.Instantiate(actorModel.actor) as GameObject;
+
             var template = enemy.GetComponent<IActorTemplate>();
             template.ActorStats(actorModel);
             enemy.name = actorModel.actorName.ToString();

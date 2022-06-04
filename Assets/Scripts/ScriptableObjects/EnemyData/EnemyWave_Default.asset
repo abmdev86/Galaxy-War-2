@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 745ef4a414c92284686a384cee573327, type: 3}
-  m_Name: EnemyWave_Test
+  m_Name: EnemyWave_Default
   m_EditorClassIdentifier: 
-  actorName: enemy_wave_test
+  actorName: enemy_wave
   attackType: 0
   description: 
   health: 1
-  speed: -30
+  speed: -40
   hitPower: 1
-  actor: {fileID: 6971258588604915374, guid: 0230a17177a9eec4abf0b732a51a4df3, type: 3}
+  actor: {fileID: 8799085722303455072, guid: e30f57fcb85f2c842bc4a655f33e985e, type: 3}
   actorsBullets: {fileID: 0}

@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace com.sluggagames.gw2.Player
+namespace com.sluggagames.gw2.PlayerData
 {
     [RequireComponent(typeof(PlayerInput))]
     public class Player : MonoBehaviour, IActorTemplate
@@ -73,7 +73,7 @@ namespace com.sluggagames.gw2.Player
         {
             movement.Normalize();
             //rb.Move(Vector3 position, Quaternion rotation); 2022.1+
-            Vector3 newMove = new Vector3(0, movement.y, -movement.x);
+            Vector3 newMove = new Vector3(0, movement.y, movement.x);
             rb.MovePosition(transform.position + newMove * Time.deltaTime * travelSpeed);
 
         }
