@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace com.sluggagames.gw2.Player
+namespace com.sluggagames.gw2.PlayerData
 {
     public class PlayerSpawner : MonoBehaviour
     {
@@ -29,11 +29,12 @@ namespace com.sluggagames.gw2.Player
             yield return new WaitForSeconds(1);
             //if we have model setup player.
             SetupPlayer();
+            yield return null;
 
         }
         void SetupPlayer()
         {
-            playerShip.transform.rotation = Quaternion.Euler(0, 180, 0);
+            // playerShip.transform.rotation = Quaternion.Euler(0, 180, 0);
             playerShip.transform.localScale = new Vector3(60, 60, 60);
             playerShip.name = actorModel.actorName;
             playerShip.transform.SetParent(this.transform);
