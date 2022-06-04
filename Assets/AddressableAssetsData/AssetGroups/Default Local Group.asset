@@ -41,6 +41,10 @@ MonoBehaviour:
     m_Address: Assets/Prefab/Player/PlayerSpawner.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ef2c2ac7c77bda748b6a034000a29abe
+    m_Address: Assets/Prefab/Player/player_bullet.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4b02c69c9438cb14d935629726b00466, type: 2}
   m_SchemaSet:

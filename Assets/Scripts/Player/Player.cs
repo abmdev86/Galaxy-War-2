@@ -19,6 +19,7 @@ namespace com.sluggagames.gw2.Player
         CinemachineVirtualCamera cam;
         Rigidbody rb;
         GameObject actor;
+        [SerializeField]
         GameObject fire;
         public int Health
         {
@@ -57,7 +58,7 @@ namespace com.sluggagames.gw2.Player
             width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f);
 
             Debug.Log(height + " and width: " + width);
-            _Player = GameObject.Find("_Player");
+            _Player = GameObject.Find("_player");
             cam.Follow = transform;
             cam.LookAt = transform;
 
@@ -143,6 +144,17 @@ namespace com.sluggagames.gw2.Player
             move = value.Get<Vector2>();
 
         }
+
+        public void OnFire(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                GameObject bullet = GameObject.Instantiate(fire, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                bullet.transform.SetParent(_Player.transform);
+
+            }
+        }
+
         #endregion
 
 
