@@ -17,7 +17,7 @@ namespace com.sluggagames.gw2.Enemy
         float verticalSpeed = 2f;
         [SerializeField]
         float verticalAmplitude = 1;
-        Vector3 sineVar;
+        Vector3 sinVector;
         float time;
 
         private void Update()
@@ -30,8 +30,8 @@ namespace com.sluggagames.gw2.Enemy
         {
 
             time += Time.deltaTime;
-            sineVar.y = Mathf.Sin(time * verticalSpeed) * verticalAmplitude;
-            transform.position = new Vector3(transform.position.x, transform.position.y + sineVar.y, -transform.position.z + travelSpeed * Time.deltaTime);
+            sinVector.y = Mathf.Sin(time * verticalSpeed) * verticalAmplitude;
+            transform.position = new Vector3(transform.position.x, transform.position.y + sinVector.y, transform.position.z + travelSpeed * Time.deltaTime);
         }
 
         public void ActorStats(SOActorModel actorModel)

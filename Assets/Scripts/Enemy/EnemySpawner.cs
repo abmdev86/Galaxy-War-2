@@ -22,6 +22,10 @@ namespace com.sluggagames.gw2.Enemy
         private void Awake()
         {
             enemies = GameObject.Find("_enemies");
+
+        }
+        private void Start()
+        {
             StartCoroutine(FireEnemy(quantity, spawnRate));
         }
 
@@ -30,6 +34,7 @@ namespace com.sluggagames.gw2.Enemy
             for (int i = 0; i < qty; i++)
             {
                 GameObject enemyUnit = CreateEnemy();
+                enemyUnit.transform.position = Vector3.zero;
                 enemyUnit.gameObject.transform.SetParent(this.transform);
                 enemyUnit.transform.position = transform.position;
                 yield return new WaitForSeconds(spwnRate);
