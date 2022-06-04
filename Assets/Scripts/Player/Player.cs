@@ -57,7 +57,6 @@ namespace com.sluggagames.gw2.Player
             height = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).y - .5f);
             width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f);
 
-            Debug.Log(height + " and width: " + width);
             _Player = GameObject.Find("_player");
             cam.Follow = transform;
             cam.LookAt = transform;
