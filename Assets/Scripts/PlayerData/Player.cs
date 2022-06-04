@@ -65,6 +65,7 @@ namespace com.sluggagames.gw2.PlayerData
 
         private void FixedUpdate()
         {
+
             Movement(move);
         }
 
@@ -117,8 +118,14 @@ namespace com.sluggagames.gw2.PlayerData
         public void Die()
         {
 
-            cam.Follow = _Player.transform;
-            cam.LookAt = _Player.transform;
+            if (cam.LookAtTargetChanged)
+            {
+                cam.LookAt = transform;
+            }
+            if (transform == null)
+            {
+                cam.LookAt = _Player.transform;
+            }
         }
         public void ActorStats(SOActorModel model)
         {

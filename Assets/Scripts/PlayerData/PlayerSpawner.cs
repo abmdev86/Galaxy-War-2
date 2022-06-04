@@ -29,6 +29,7 @@ namespace com.sluggagames.gw2.PlayerData
             yield return new WaitForSeconds(1);
             //if we have model setup player.
             SetupPlayer();
+            yield return null;
 
         }
         void SetupPlayer()
