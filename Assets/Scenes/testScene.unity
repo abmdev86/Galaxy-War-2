@@ -649,7 +649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa9011b1b3c2af488bb2e9b080d95e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyName: Auroiah
 --- !u!114 &1430467613
 MonoBehaviour:
   m_ObjectHideFlags: 0
