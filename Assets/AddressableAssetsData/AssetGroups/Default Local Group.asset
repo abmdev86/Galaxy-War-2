@@ -22,7 +22,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e30f57fcb85f2c842bc4a655f33e985e
-    m_Address: Assets/Prefab/Enemies/enemy_wave.prefab
+    m_Address: enemy_wave
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 6f4a63bbf85ca1a449f54ca8e1180eb9

@@ -3,7 +3,7 @@ using com.sluggagames.gw2.Core;
 using com.sluggagames.gw2.Core.Interfaces;
 using UnityEngine;
 
-namespace com.sluggagames.gw2.Player
+namespace com.sluggagames.gw2.PlayerData
 {
     public class PlayerBullet : MonoBehaviour, IActorTemplate
     {
@@ -26,7 +26,7 @@ namespace com.sluggagames.gw2.Player
 
         private void Update()
         {
-            transform.position += new Vector3(0, 0, -travelSpeed) * Time.deltaTime;
+            transform.position += new Vector3(0, 0, travelSpeed) * Time.deltaTime;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -40,7 +40,6 @@ namespace com.sluggagames.gw2.Player
                     if (health >= 1)
                     {
                         health -= enemy.SendDamage();
-
                     }
                     if (health <= 0)
                     {

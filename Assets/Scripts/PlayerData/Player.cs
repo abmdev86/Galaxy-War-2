@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace com.sluggagames.gw2.Player
+namespace com.sluggagames.gw2.PlayerData
 {
     [RequireComponent(typeof(PlayerInput))]
     public class Player : MonoBehaviour, IActorTemplate
@@ -57,7 +57,6 @@ namespace com.sluggagames.gw2.Player
             height = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).y - .5f);
             width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f);
 
-            Debug.Log(height + " and width: " + width);
             _Player = GameObject.Find("_player");
             cam.Follow = transform;
             cam.LookAt = transform;
@@ -66,6 +65,7 @@ namespace com.sluggagames.gw2.Player
 
         private void FixedUpdate()
         {
+
             Movement(move);
         }
 
@@ -74,7 +74,7 @@ namespace com.sluggagames.gw2.Player
         {
             movement.Normalize();
             //rb.Move(Vector3 position, Quaternion rotation); 2022.1+
-            Vector3 newMove = new Vector3(0, movement.y, -movement.x);
+            Vector3 newMove = new Vector3(0, movement.y, movement.x);
             rb.MovePosition(transform.position + newMove * Time.deltaTime * travelSpeed);
 
         }
@@ -85,17 +85,18 @@ namespace com.sluggagames.gw2.Player
         {
             if (other.tag == "Enemy")
             {
+                IActorTemplate enemy = other.GetComponent<IActorTemplate>();
                 if (health >= 1)
                 {
                     // check for player shield
                     if (transform.Find("energy +1(Clone"))
                     {
                         Destroy(transform.Find("energy +1(Clone)").gameObject);
-                        health -= other.GetComponent<IActorTemplate>().SendDamage();
+                        health -= enemy.SendDamage();
                     }
                     else
                     {
-                        health -= 1;
+                        health -= enemy.SendDamage();
                     }
                 }
                 if (health <= 0)
@@ -117,8 +118,13 @@ namespace com.sluggagames.gw2.Player
 
         public void Die()
         {
+            Destroy(gameObject);
 
-            cam.Follow = _Player.transform;
+
+        }
+
+        private void OnDestroy()
+        {
             cam.LookAt = _Player.transform;
         }
         public void ActorStats(SOActorModel model)
