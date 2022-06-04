@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using com.sluggagames.gw2.Core;
 using com.sluggagames.gw2.Core.Interfaces;
+using com.sluggagames.gw2.PlayerData;
 using UnityEngine;
 
 namespace com.sluggagames.gw2.Enemy
@@ -37,8 +38,7 @@ namespace com.sluggagames.gw2.Enemy
                 //    enemyUnit.transform.position = Vector3.zero;
                 enemyUnit.gameObject.transform.SetParent(this.transform);
                 enemyUnit.transform.position = transform.position;
-                //   var player = FindObjectOfType(typeof(Player));
-                enemyUnit.transform.LookAt(GameObject.Find("player_ship").transform);
+
                 yield return new WaitForSeconds(spwnRate);
             }
             yield return null;
