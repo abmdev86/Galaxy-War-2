@@ -127,9 +127,8 @@ namespace com.sluggagames.gw2.PlayerData
 
         public void Die()
         {
+            GameManager.Instance.LifeLost();
             Destroy(gameObject);
-
-
         }
 
         private void OnDestroy()
