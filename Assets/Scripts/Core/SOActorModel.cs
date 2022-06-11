@@ -9,6 +9,7 @@ namespace com.sluggagames.gw2.Core
     public class SOActorModel : ScriptableObject
     {
         public string actorName;
+        public int score;
         public AttackType attackType;
 
         public enum AttackType

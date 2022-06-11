@@ -12,6 +12,7 @@ namespace com.sluggagames.gw2.Enemy
         int travelSpeed;
         int firingSpeed;
         int hitPower;
+        int score;
 
         [SerializeField]
         float verticalSpeed = 2f;
@@ -49,10 +50,12 @@ namespace com.sluggagames.gw2.Enemy
             health = actorModel.health;
             travelSpeed = actorModel.speed;
             hitPower = actorModel.hitPower;
+            score = actorModel.score;
         }
 
         public void Die()
         {
+            GameManager.Instance.SetScore(score);
             Destroy(gameObject);
         }
 
@@ -67,6 +70,8 @@ namespace com.sluggagames.gw2.Enemy
                 }
                 if (health <= 0)
                 {
+            
+
                     Die();
                 }
             }

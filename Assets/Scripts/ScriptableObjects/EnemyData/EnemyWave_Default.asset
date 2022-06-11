@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EnemyWave_Default
   m_EditorClassIdentifier: 
   actorName: enemy_wave
+  score: 200
   attackType: 0
   description: 
   health: 1
