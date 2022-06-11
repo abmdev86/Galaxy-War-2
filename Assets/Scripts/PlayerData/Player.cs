@@ -16,6 +16,13 @@ namespace com.sluggagames.gw2.PlayerData
         int health;
         int hitPower;
         Vector2 move;
+         [SerializeField]
+        [Range(-10, 50)]
+        float yMin = 0;
+        [SerializeField]
+        [Range(50, 55)]
+        float yMax = 50;
+
         CinemachineVirtualCamera cam;
         Rigidbody rb;
         GameObject actor;
@@ -74,7 +81,9 @@ namespace com.sluggagames.gw2.PlayerData
         {
             movement.Normalize();
             //rb.Move(Vector3 position, Quaternion rotation); 2022.1+
+            
             Vector3 newMove = new Vector3(0, movement.y, movement.x);
+            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, yMin, yMax), transform.position.z);
             rb.MovePosition(transform.position + newMove * Time.deltaTime * travelSpeed);
 
         }
@@ -118,9 +127,8 @@ namespace com.sluggagames.gw2.PlayerData
 
         public void Die()
         {
+            GameManager.Instance.LifeLost();
             Destroy(gameObject);
-
-
         }
 
         private void OnDestroy()
