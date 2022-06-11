@@ -5,7 +5,7 @@ using System;
 
 namespace com.sluggagames.gw2.Core
 {
-    public class GameManager : MonoBehaviour
+    public  class GameManager : MonoBehaviour
     {
         static GameManager instance;
         public static GameManager Instance
@@ -16,8 +16,13 @@ namespace com.sluggagames.gw2.Core
             }
         }
 
+    [SerializeField]
+    LevelManager sceneManager;
+
         public static int currentScene = 0;
         public static int gameLevelScene = 3;
+
+        public static int playerLives = 3;
         CinemachineVirtualCamera cam;
         bool died = false;
         public bool Died
@@ -30,10 +35,12 @@ namespace com.sluggagames.gw2.Core
         {
             cam = (CinemachineVirtualCamera)GameObject.FindObjectOfType(typeof(CinemachineVirtualCamera));
             CheckGameManager();
+            sceneManager = GetComponent<LevelManager>();
+            
 
             // change to a call to the levelmanager to get this ....
             currentScene = SceneManager.GetActiveScene().buildIndex;
-
+            currentScene = sceneManager.GetCurrentSceneIndex();
         }
 
         void LightAndCameraSetup(int sceneIndex)
@@ -55,6 +62,18 @@ namespace com.sluggagames.gw2.Core
         private void CameraSetup()
         {
             var player = GameObject.Find("_player");
+        }
+
+        public void LifeLost(){
+            if(playerLives >=1){
+            playerLives--;
+            print($"Lives remaining {playerLives}");
+            print("Lives remaining without $ " + playerLives);
+           sceneManager.ResetScene();
+            }else{
+                playerLives = 3;
+                sceneManager.GameOver();
+            }
         }
 
         private void LightSetup()

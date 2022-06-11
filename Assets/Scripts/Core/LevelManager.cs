@@ -33,6 +33,9 @@ namespace com.sluggagames.gw2.Core
             SceneManager.LoadScene(Scenes.gameOver.ToString());
 
         }
+        public int GetCurrentSceneIndex(){
+            return SceneManager.GetActiveScene().buildIndex;
+        }
 
 
     }
