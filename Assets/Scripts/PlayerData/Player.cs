@@ -16,17 +16,17 @@ namespace com.sluggagames.gw2.PlayerData
         int health;
         int hitPower;
         Vector2 move;
-         [SerializeField]
+        [SerializeField]
         [Range(-10, 50)]
         float yMin = 0;
         [SerializeField]
         [Range(50, 55)]
         float yMax = 50;
-     
+
         float zMin = 900;
         float zMax = 1050;
 
-        CinemachineVirtualCamera cam;
+        // CinemachineVirtualCamera cam;
         Rigidbody rb;
         GameObject actor;
         [SerializeField]
@@ -58,18 +58,30 @@ namespace com.sluggagames.gw2.PlayerData
         GameObject _Player;
         float width;
         float height;
+        [SerializeField]
+        AudioSource source;
+        [SerializeField]
+        AudioClip shootSFX;
 
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+            source = GetComponent<AudioSource>();
+
+        }
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody>();
-            cam = (CinemachineVirtualCamera)GameObject.FindObjectOfType(typeof(CinemachineVirtualCamera));
+            // cam = (CinemachineVirtualCamera)GameObject.FindObjectOfType(typeof(CinemachineVirtualCamera));
+
+            source.clip = shootSFX;
+
             height = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).y - .5f);
             width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f);
 
             _Player = GameObject.Find("_player");
-            cam.Follow = transform;
-            cam.LookAt = transform;
+            //cam.Follow = transform;
+            // cam.LookAt = transform;
 
         }
 
@@ -82,14 +94,14 @@ namespace com.sluggagames.gw2.PlayerData
 
         void Movement(Vector2 movement)
         {
-            
             movement.Normalize();
-            //rb.Move(Vector3 position, Quaternion rotation); 2022.1+
-            var yVal = Mathf.Clamp(transform.position.y, yMin, yMax);
-            var zVal = Mathf.Clamp(transform.position.z, zMin, zMax);
+
+            if (transform.localPosition.z < width + width / 0.9)
+            {
+                print("hitting boundary");
+            }
 
             Vector3 newMove = new Vector3(0, movement.y, movement.x);
-            transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
             rb.MovePosition(transform.position + newMove * Time.deltaTime * travelSpeed);
 
         }
@@ -120,6 +132,13 @@ namespace com.sluggagames.gw2.PlayerData
                 }
             }
         }
+
+
+        private void OnDestroy()
+        {
+            // cam.LookAt = _Player.transform;
+        }
+
         #endregion
         #region  IActorTemplate Methods
         public void TakeDamage(int incomingDamage)
@@ -137,10 +156,7 @@ namespace com.sluggagames.gw2.PlayerData
             Destroy(gameObject);
         }
 
-        private void OnDestroy()
-        {
-            cam.LookAt = _Player.transform;
-        }
+
         public void ActorStats(SOActorModel model)
         {
 
@@ -148,12 +164,14 @@ namespace com.sluggagames.gw2.PlayerData
             hitPower = model.hitPower;
             travelSpeed = model.speed;
             fire = model.actorsBullets;
-
         }
+
+
         public void Revive()
         {
             throw new System.NotImplementedException();
         }
+
         #endregion
         #region PlayerInput Callbacks
 
@@ -169,6 +187,7 @@ namespace com.sluggagames.gw2.PlayerData
         {
             if (value.isPressed)
             {
+                source.Play();
                 GameObject bullet = GameObject.Instantiate(fire, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
                 bullet.transform.SetParent(_Player.transform);
 
