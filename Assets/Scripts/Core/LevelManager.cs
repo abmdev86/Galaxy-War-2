@@ -30,6 +30,7 @@ namespace com.sluggagames.gw2.Core
 
         public void GameOver()
         {
+        print(GameManager.Instance.GetComponent<ScoreManager>().PlayerScore);
             SceneManager.LoadScene(Scenes.gameOver.ToString());
 
         }

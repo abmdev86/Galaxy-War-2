@@ -22,6 +22,9 @@ namespace com.sluggagames.gw2.PlayerData
         [SerializeField]
         [Range(50, 55)]
         float yMax = 50;
+     
+        float zMin = 900;
+        float zMax = 1050;
 
         CinemachineVirtualCamera cam;
         Rigidbody rb;
@@ -79,11 +82,14 @@ namespace com.sluggagames.gw2.PlayerData
 
         void Movement(Vector2 movement)
         {
+            
             movement.Normalize();
             //rb.Move(Vector3 position, Quaternion rotation); 2022.1+
-            
+            var yVal = Mathf.Clamp(transform.position.y, yMin, yMax);
+            var zVal = Mathf.Clamp(transform.position.z, zMin, zMax);
+
             Vector3 newMove = new Vector3(0, movement.y, movement.x);
-            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, yMin, yMax), transform.position.z);
+            transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
             rb.MovePosition(transform.position + newMove * Time.deltaTime * travelSpeed);
 
         }
